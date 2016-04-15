@@ -1,0 +1,30 @@
+{
+  "name": "cordova-plugin-ms-intune-mam",
+  "version": "1.0.0",
+  "description": "Microsoft Intune App SDK Cordova plugin",
+  "cordova": {
+    "id": "cordova-plugin-ms-intune-mam",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+    "Cordova",
+    "Microsoft",
+    "Intune",
+    "MAM",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "Microsoft",
+  "license": "SEE LICENSE IN Intune_App_SDK_Cordova_plugin_RTM_license.pdf",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/msintuneappsdk/cordova-plugin-ms-intune-mam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/msintuneappsdk/cordova-plugin-ms-intune-mam/issues"
+  }
+}

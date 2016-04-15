@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-ms-intune-mam" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Intune App SDK</name>
+    <description>Microsoft Intune App SDK Cordova plugin</description>
+    <author>Microsoft</author>
+    <keywords>Cordova,Microsoft,Intune,MAM</keywords>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="IntuneAppSDK">
+                <param name="ios-package" value="IntuneAppSDK" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <hook type="before_prepare" src="scripts/ios/configuration.js"/>
+        <resource-file src="lib/ios/IntuneMAMResources.bundle" />
+        <framework src="lib/ios/libIntuneMAM.a" custom="true"/>
+        <framework src="MessageUI.framework" />
+        <framework src="Security.framework" />
+        <framework src="LocalAuthentication.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="MobileCoreServices.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="ImageIO.framework" />
+        <framework src="libsqlite3.dylib" />
+        <framework src="libc++.dylib" />
+        <!-- According to bug filed at https://issues.apache.org/jira/browse/CB-6227?jql=text%20~%20%22plugin%20dependency%22, apps that already have the plugin dependency will not upgrade the plugin to the requested version. -->
+        <!-- According to bug filed at https://issues.apache.org/jira/browse/CB-10438?jql=text%20~%20%22plugin%20dependency%22, Cordova will currently grab the latest version of the plugin dependency rather than the specified version -->
+        <dependency id="cordova-plugin-ms-adal" version="^0.6.2" />
+    </platform>
+    <platform name="android">
+        <hook type="after_compile" src="wraphook.js"/>
+    </platform>
+    <info>See README for usage.</info>
+</plugin>

@@ -1,0 +1,104 @@
+#
+# For all undefined file extensions, let git determine if it is text
+#
+* text=auto
+
+#
+# Source code files with differs
+#
+*.cs                   text diff=csharp
+*.c                    text diff=cpp
+*.cpp                  text diff=cpp
+*.h                    text diff=cpp
+*.htm                  text diff=html
+*.html                 text diff=html
+*.java                 text diff=java
+*.m                    text diff=objc
+*.pl                   text diff=perl
+*.xhtml                text diff=html
+
+#
+# Windows-only source code files
+#
+*.bat                  text eol=crlf
+*.cmd                  text eol=crlf
+*.vb                   text eol=crlf
+*.vbs                  text eol=crlf
+*.ps1                  text eol=crlf
+*.wsf                  text eol=crlf
+
+#
+# Windows-only text files
+#
+*.csv                  text eol=crlf
+
+#
+# Windows-only build definition files
+#
+*.sln                  text eol=crlf 
+
+*.csproj               text eol=crlf
+*.dbproj               text eol=crlf
+*.fsproj               text eol=crlf
+*.proj                 text eol=crlf
+*.vbproj               text eol=crlf
+*.vcxproj              text eol=crlf
+
+*.vcxproj.filters      text eol=crlf
+*.msbuild              text eol=crlf 
+*.props                text eol=crlf
+*.targets              text eol=crlf
+
+#
+# Cross-platform source code files
+#
+*.css                  text
+*.js                   text
+*.json                 text
+*.pch                  text
+*.sql                  text
+*.xaml                 text
+
+#
+# Cross-platform text files
+#
+*.txt                  text
+README                 text
+
+#
+# OSX source code files
+#
+*.xcworkspacedata      text
+*.pbxproj              text
+*.plist                text
+*.xcscheme             text
+*.strings              text
+*.entitlements         text
+*.xcconfig             text
+*.xib                  text
+*.storyboard           text
+
+#
+# Unix source code files
+#
+*.sh                   text eol=lf
+
+#
+# Raster images
+#
+*.bmp                  binary
+*.gif                  binary
+*.jpg                  binary
+*.jpeg                 binary
+*.png                  binary
+*.psd                  binary
+*.tif                  binary
+*.tiff                 binary
+
+#
+# MAM SDK binaries
+#
+Info.plist		binary
+AppRestrictions.strings	binary
+*.a			binary
+*.nib			binary

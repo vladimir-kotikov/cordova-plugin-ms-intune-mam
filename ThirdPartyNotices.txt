@@ -1,0 +1,526 @@
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+Do Not Translate or Localize
+
+This file is based on or incorporates material from the projects listed below (collectively, “Third Party Code”). Microsoft is not the original author of the Third Party Code. The original copyright notice and the license under which Microsoft received such Third Party Code, are set forth below. Such licenses and notices are provided for informational purposes only. Microsoft licenses the Third Party Code to you under the license terms governing the Microsoft Product. Microsoft reserves all other rights not expressly granted under this agreement, whether by implication, estoppel or otherwise.
+
+Third Party Code:
+
+1. ApkTool v. 2.0.2 (https://github.com/iBotPeaches/Apktool/)
+2. Apache Commons CLI v. 1.2 (http://commons.apache.org/proper/commons-cli/download_cli.cgi)
+3. Apache Commons IO v. 2.4 (http://commons.apache.org/proper/commons-io/download_io.cgi)
+4. Manifest Merger v 5.0.2_r1 (https://android.googlesource.com/platform/tools/base/+/android-5.0.2_r1/)
+5. SignApk.java v. 5.0.2_r1 (https://github.com/android/platform_build/blob/lollipop-release/tools/signapk/SignApk.java)
+6. Spongy Castle v. 1.50 (http://rtyley.github.io/spongycastle/)
+7. Sample Code from Android Blog "Some Secure Random Thoughts" 14.08.13 (http://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html)
+8. AppInsights-iOS v. 1.0-beta.6 (https://github.com/Microsoft/ApplicationInsights-iOS)
+9. alunny-node-xcode v. 0.8.3 (https://github.com/alunny/node-xcode)
+10. TooTallNate-plist.js v. 1.2.0 (https://github.com/TooTallNate/plist.js)
+11. azure-activedirectory-library-for-cordova v. 0.6.2 (https://github.com/AzureAD/azure-activedirectory-library-for-cordova)
+12. Image file originating with Apache Cordova (azure-activedirectory-library-for-cordova v0.6.2)
+13. Java archive originating with or related to Google Gson (azure-activedirectory-library-for-cordova v0.6.2)
+14. Java archive originating with or related to platform_frameworks_support (azure-activedirectory-library-for-cordova v0.6.2)
+15. File originating with Topcoat (azure-activedirectory-library-for-cordova v0.6.2)
+16. File with code ""copied from"" underscore.js (alunny-node-xcode v0.8.3)
+17. Files with code originating with the node.js package buffer (TooTallNate-plist v1.2.0)
+18. Files with code originating with the node.js package is-buffer (TooTallNate-plist v1.2.0)
+
+
+As the recipient of the above Third-Party Code, Microsoft sets forth a copy of the notices and other information below.
+Provided for Informational Purposes Only
+
+
+%% ApkTool v. 2.0.2 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+apktool
+Copyright 2014 Ryszard Wiśniewski <brut.alll@gmail.com>
+
+This product includes software developed by:
+
+  * Ryszard Wiśniewski (brut.alll@gmail.com)
+  * JesusFreke (http://code.google.com/p/smali/)
+  * Dmitry Skiba (http://code.google.com/p/android4me/)
+  * Tahseen Ur Rehman (http://code.google.com/p/radixtree/)
+  * Connor Tumbleson (connor.tumbleson@gmail.com)
+  * Android Open Source Project (http://source.android.com/)
+  * The Apache Software Foundation (http://www.apache.org/)
+
+Provided for Informational Purposes Only
+
+Apache 2.0 License
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.
+
+END OF ApkTool v. 2.0.2 NOTICES AND INFORMATION
+=========================================
+
+
+%% Apache Commons CLI v. 1.2 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Apache Commons CLI
+Copyright 2001-2009 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+Provided for Informational Purposes Only
+
+Apache 2.0 License
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.
+
+END OF Apache Commons CLI v. 1.2 NOTICES AND INFORMATION
+=========================================
+
+
+%% Apache Commons IO v. 2.4 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Apache Commons IO
+Copyright 2002-2012 The Apache Software Foundation
+
+This product includes software developed by
+The Apache Software Foundation (http://www.apache.org/).
+
+Provided for Informational Purposes Only
+
+Apache 2.0 License
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.
+
+END OF Apache Commons IO v. 2.4 NOTICES AND INFORMATION
+=========================================
+
+
+%% Manifest Merger v 5.0.2_r1 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Copyright (C) 2011 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Provided for Informational Purposes Only
+
+Apache 2.0 License
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+
+END OF Manifest Merger v 5.0.2_r1 NOTICES AND INFORMATION
+=========================================
+
+
+%% SignApk.java v. 5.0.2_r1 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Copyright (C) 2008 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Provided for Informational Purposes Only
+
+Apache 2.0 License
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+
+END OF SignApk.java v. 5.0.2_r1 NOTICES AND INFORMATION
+=========================================
+
+
+%% Spongy Castle v. 1.50 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Copyright (c) 2000 - 2013 The Legion of the Bouncy Castle Inc. (http://www.bouncycastle.org)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Provided for Informational Purposes Only
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+END OF Spongy Castle v. 1.50 NOTICES AND INFORMATION
+=========================================
+
+
+%% Sample Code from Android Blog "Some Secure Random Thoughts" 14.08.13 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+http://android-developers.blogspot.com/2013/08/some-securerandom-thoughts.html
+Posted by: Alex Klyubin, Android Security Engineer
+
+Licensed:  /* * This software is provided 'as-is', without any express or implied * warranty. In no event will Google be held liable for any damages * arising from the use of this software. * * Permission is granted to anyone to use this software for any purpose, * including commercial applications, and to alter it and redistribute it * freely, as long as the origin is not misrepresented. */
+
+END OF Sample Code from Android Blog "Some Secure Random Thoughts" 14.08.13 NOTICES AND INFORMATION
+=========================================
+
+
+%% AppInsights-iOS v. 1.0-beta.6 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+ AppInsights-iOS
+
+Copyright (c) Microsoft Corporation
+  Provided for Informational Purposes Only
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+END OF AppInsights-iOS v. 1.0-beta.6 NOTICES AND INFORMATION
+=========================================
+
+
+%% alunny-node-xcode v. 0.8.3 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Files originating with or related to node-xcode v0.8.3, ""tools and utilities for working with xcode/ios projects."" See https://github.com/alunny/node-xcode. The presence of the file /node-xcode-0.8.3/LICENSE in the materials would suggest that this material is licensed under the terms of the Apache Software License v2.0, which state:
+
+   Copyright 2012 Andrew Lunny, Adobe Systems
+
+   Licensed under the Apache License, Version 2.0 (the ""License"");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an ""AS IS"" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+File /node-xcode-0.8.3/README.md in the materials, however, indicates that the materials are released under the MIT License. It is unclear which license is intended to be operative.
+
+END OF alunny-node-xcode v. 0.8.3 NOTICES AND INFORMATION
+=========================================
+
+%% TooTallNate-plist.js v. 1.2.0 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Files originating with or related to plist v1.2.0, a ""Mac OS X Plist parser/builder for Node.js and browsers."" See https://github.com/TooTallNate/plist.js. This material is licensed under the terms of the MIT License (see file /plist.js-d8d74cbbe2ff7a899555f32343cde3700777d522/LICENSE in the materials), which state:
+
+(The MIT License)
+
+Copyright (c) 2010-2014 Nathan Rajlich <nathan@tootallnate.net>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the ""Software""), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+END OF TooTallNate-plist.js v. 1.2.0 NOTICES AND INFORMATION
+=========================================
+
+%% azuread-azure-activedirectory-library-for-cordova v. 0.6.2 NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Files originating with or related to azure-activedirectory-library-for-cordova v0.6.2, this ""plugin provides easy to use authentication functionality for your Apache Cordova apps by taking advantage of Windows Server Active Directory and Windows Azure Active Directory."" See https://github.com/AzureAD/azure-activedirectory-library-for-cordova. This material is licensed under the terms of the Apache Software License v2.0 (see file /azure-activedirectory-library-for-cordova-0.6.2/License.txt in the materials), which state:
+
+Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the ""License""); you may not use these files except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an ""AS IS"" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+END OF azuread-azure-activedirectory-library-for-cordova v. 0.6.2 NOTICES AND INFORMATION
+=========================================
+
+%% Image file originating with Apache Cordova NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Image file originating with Apache Cordova, a ""popular mobile application development framework originally created by Nitobi."" See https://cordova.apache.org/. This material is licensed under the Apache Software License v2.0 (see http://www.apache.org/licenses/LICENSE-2.0); azure-activedirectory-library-for-cordova v0.6.2 may not be in compliance with the terms of the license, which would require the presence of at least the following notice in the materials:
+
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * ""License""); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * ""AS IS"" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *
+*/
+
+END OF Image file originating with Apache Cordova File NOTICES AND INFORMATION
+=========================================
+
+%% Java archive originating with or related to Google Gson NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Java archive originating with or related to Google Gson, a ""Java serialization library that can convert Java Objects into JSON and back."" See https://github.com/google/gson. Google Gson is licensed under the terms of the Apache Software License v2.0 (see https://github.com/google/gson); azure-activedirectory-library-for-cordova v0.6.2 may not be in compliance with the terms of this license, which would require the presence of at least the following notice in the materials:
+
+Copyright 2008 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the ""License"");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an ""AS IS"" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+END OF Java archive originating with or related to Google Gson File NOTICES AND INFORMATION
+=========================================
+
+%% Java archive originating with or related to platform_frameworks_support NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Java archive originating with or related to platform_frameworks_support. See https://github.com/android/platform_frameworks_support. This material is licensed under the terms of the Apache Software License v2.0 (see e.g. https://github.com/android/platform_frameworks_support/blob/master/v4/jellybean-mr2/android/support/v4/accessibilityservice/AccessibilityServiceInfoCompatJellyBeanMr2.java); azure-activedirectory-library-for-cordova v0.6.2 may not be in compliance with the terms of this license, which would require the presence of at least the following notice in the materials:
+
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the ""License"");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an ""AS IS"" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ END OF Java archive originating with or related to platform_frameworks_support NOTICES AND INFORMATION
+=========================================
+
+%% File originating with Topcoat NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+File originating with Topcoat, ""CSS for clean and fast web apps."" See https://github.com/topcoat/topcoat. This material is licensed under the terms of the Apache Software License v2.0 (see https://github.com/topcoat/topcoat/blob/master/LICENSE); azure-activedirectory-library-for-cordova v0.6.2 may not be in compliance with the terms of the license, which state:
+
+/**
+*
+* Copyright 2012 Adobe Systems Inc.;
+*
+* Licensed under the Apache License, Version 2.0 (the ""License"");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an ""AS IS"" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+END OF File originating with Topcoat NOTICES AND INFORMATION
+=========================================
+
+%% File with code ""copied from"" underscore.js NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+File with code ""copied from"" underscore.js, a ""utility-belt library for JavaScript that provides support for the usual functional suspects (each, map, reduce, filter...) without extending any core JavaScript objects."" See https://github.com/jashkenas/underscore. underscore.js is licensed under the terms of the MIT License (see https://github.com/jashkenas/underscore/blob/master/LICENSE); node-xcode v0.8.3 may not be in compliance with the terms of the license, which state:
+
+Copyright (c) 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative
+Reporters & Editors
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the ""Software""), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+END OF File with code ""copied from"" underscore.js NOTICES AND INFORMATION
+=========================================
+
+%% Files with code originating with the node.js package buffer NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Files with code originating with the node.js package buffer by Feross Aboukhadijeh, the ""buffer module from node.js, for the browser."" See https://github.com/feross/buffer/ (specifically https://github.com/feross/buffer/blob/0c409fc59e038a3b8d988cd5b3ccc7dc72001c5d/index.js). This material is licensed under the terms of the MIT License (see https://github.com/feross/buffer/blob/master/LICENSE); plist v1.2.0 may not be in compliance with the terms of the license, which state:
+
+The MIT License (MIT)
+
+Copyright (c) Feross Aboukhadijeh, and other contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the ""Software""), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+END OF Files with code originating with the node.js package buffer NOTICES AND INFORMATION
+=========================================
+
+%% Files with code originating with the node.js package is-buffer NOTICES AND INFORMATION BEGIN HERE
+=========================================
+
+Files with code originating with the node.js package is-buffer by Feross Aboukhadijeh, to ""[d]etermine if an object is Buffer."" See https://github.com/feross/is-buffer/ (specifically https://github.com/feross/is-buffer/blob/6ca106240e155ea4cfe13e2e1c83aadab91d2ec1/index.js). This material is licensed under the terms of the MIT License (see https://github.com/feross/is-buffer/blob/master/LICENSE); plist v1.2.0 may not be in compliance with the terms of the license, which state:
+
+The MIT License (MIT)
+
+Copyright (c) Feross Aboukhadijeh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the ""Software""), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+END OF Files with code originating with the node.js package is-buffer NOTICES AND INFORMATION
+=========================================
