@@ -56,6 +56,9 @@ var args = ['-s', target, 'install', '-t'];
 
 The effect of this is to run `adb install` with the "-t" flag since `testOnly` apps are not installable without it.
 
+###Debugging from Visual Studio
+After launching the app for the first time you should see a dialog notifying you that the app is managed by Intune. Hit "Don't show again" and click the debug/run button again from VS for breakpoints to be hit.
+
 ##Known Limitations
 * The latest Microsoft Intune Company Portal app must be used.
 * On Android, Multi-Dex support is incomplete.
