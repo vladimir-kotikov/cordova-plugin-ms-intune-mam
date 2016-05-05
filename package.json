@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ms-intune-mam",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Microsoft Intune App SDK Cordova plugin",
   "cordova": {
     "id": "cordova-plugin-ms-intune-mam",

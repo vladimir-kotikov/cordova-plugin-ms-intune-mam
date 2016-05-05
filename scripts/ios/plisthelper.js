@@ -38,17 +38,28 @@ Plist.prototype.getURLTypes = function () {
 };
 
 // Returns the URL schemes belonging to a specified URL type.
-// urlType: the URL type to get the URL schemes for
+// urlType: the URL type object to get the URL schemes from
 // returns: an array of the CFBundleURLSchemes
 Plist.prototype.getURLSchemesFromURLType = function (urlType) {
-  return this.data['CFBundleURLTypes'][urlType]['CFBundleURLSchemes'];
+  if (!urlType || !urlType['CFBundleURLSchemes']) {
+    throw new ReferenceError('Invalid argument urlType for getURLSchemeToURLType');
+  }
+
+  return urlType['CFBundleURLSchemes'];
 };
 
 // Adds a URL scheme to the specified URL type.
-// urlType: the URL type to add the scheme to
+// urlType: the URL type object to add the scheme to
 // scheme: the scheme to add
 Plist.prototype.addURLSchemeToURLType = function (urlType, scheme) {
-  modify.addToUniqueKeyedArray(this.data['CFBundleURLTypes'][urlType], 'CFBundleURLSchemes', scheme);
+  if (!urlType || !urlType['CFBundleURLSchemes']) {
+    throw new ReferenceError('Invalid argument urlType for addURLSchemeToURLType');
+  }
+  if (!scheme) {
+    throw new ReferenceError('Undefined argument scheme for addURLSchemeToURLType');
+  }
+
+  modify.addToUniqueKeyedArray(urlType, 'CFBundleURLSchemes', scheme);
 };
 
 // Returns the list of application queries schemes.
@@ -60,6 +71,9 @@ Plist.prototype.getApplicationQueriesSchemes = function () {
 // Adds a scheme to the list of application queries schemes.
 // scheme: the scheme to add
 Plist.prototype.addApplicationQueriesScheme = function (scheme) {
+  if (!scheme) {
+    throw new ReferenceError('Undefined argument for addApplicationQueriesScheme');
+  }
   modify.addToUniqueKeyedArray(this.data, 'LSApplicationQueriesSchemes', scheme);
 };
 
@@ -133,15 +147,22 @@ var addToIntuneMAMSettings = function (plist, key, value) {
 // Adds the key/value value pair to IntuneMAMSettings.
 // currentValue: the value to add to IntuneMAMSettings
 // intuneKey: the key to store it under
-Plist.prototype.addStoryboardOrNibToIntuneIfExists = function (currentValue, intuneKey) {
-  if (currentValue) {
-    addToIntuneMAMSettings(this, intuneKey, currentValue);
+Plist.prototype.addStoryboardOrNibToIntune = function (currentValue, intuneKey) {
+  if (!intuneKey) {
+    throw new ReferenceError('Undefined argument intuneKey for addStoryboardOrNibToIntuneIfExists');
   }
+  if (!currentValue) {
+    throw new ReferenceError('Undefined argument currentValue for addStoryboardOrNibToIntuneIfExists');
+  }
+  addToIntuneMAMSettings(this, intuneKey, currentValue);
 };
 
 // Adds an AppGroupIdentifiers key to the IntuneMAMSettings dictionary.
 // value: the value to set AppGroupIdentifiers.
 Plist.prototype.addAppGroupSettings = function (value) {
+  if (!value) {
+    throw new ReferenceError('Undefined argument for addAppGroupSettings');
+  }
   addToIntuneMAMSettings(this, 'AppGroupIdentifiers', value);
 };
 
@@ -149,6 +170,7 @@ Plist.prototype.addAppGroupSettings = function (value) {
 // returns: a Q promise which resolves when the loading is complete (and returns this back to the next in the chain)
 Plist.prototype.load = function () {
   var plist = this;
+  console.log('Reading file from path: ./platforms/ios/' + this.filepath);
   return this.q.ninvoke(fs, 'readFile', './platforms/ios/' + this.filepath, 'utf8')
     .then(function (file) {
       plist.data = plistLibrary.parse(file);
@@ -168,9 +190,9 @@ module.exports = Plist;
 // SIG // MIIdpgYJKoZIhvcNAQcCoIIdlzCCHZMCAQExCzAJBgUr
 // SIG // DgMCGgUAMGcGCisGAQQBgjcCAQSgWTBXMDIGCisGAQQB
 // SIG // gjcCAR4wJAIBAQQQEODJBs441BGiowAQS9NQkAIBAAIB
-// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFCt56mRdBYQt
-// SIG // neMR3BzEIDd5q/ayoIIYZDCCBMMwggOroAMCAQICEzMA
-// SIG // AACc7v4UValdNVAAAAAAAJwwDQYJKoZIhvcNAQEFBQAw
+// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFAqGX1SOy+wf
+// SIG // LMOLhH0ubVK43/u7oIIYZDCCBMMwggOroAMCAQICEzMA
+// SIG // AACdQmjuMRzXVr0AAAAAAJ0wDQYJKoZIhvcNAQEFBQAw
 // SIG // dzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0
 // SIG // b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1p
 // SIG // Y3Jvc29mdCBDb3Jwb3JhdGlvbjEhMB8GA1UEAxMYTWlj
@@ -179,34 +201,34 @@ module.exports = Plist;
 // SIG // AlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQH
 // SIG // EwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29y
 // SIG // cG9yYXRpb24xDTALBgNVBAsTBE1PUFIxJzAlBgNVBAsT
-// SIG // Hm5DaXBoZXIgRFNFIEVTTjo1ODQ3LUY3NjEtNEY3MDEl
+// SIG // Hm5DaXBoZXIgRFNFIEVTTjoxNDhDLUM0QjktMjA2NjEl
 // SIG // MCMGA1UEAxMcTWljcm9zb2Z0IFRpbWUtU3RhbXAgU2Vy
 // SIG // dmljZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-// SIG // ggEBAMwlhsl+iHoEj/vklU9epTLAab6xrU1GWdPtri0X
-// SIG // lXXCMHd2091EB93Uff8GMa0sSf786tMU1N48+M230myS
-// SIG // iD2LhwqTOH+Wtrc7v555A64ftHgB3Tc7LuyveruJiWU7
-// SIG // iGI15VE7d64pXCwmFZs4K9MbvbPBtBKuu76g8rl7jG2p
-// SIG // 8o7lEj/f2zhzZtxVW0XTnLCg2y34ziccn4ieu78n2xHP
-// SIG // emwVbpUZv+hTb1+ewejzeMMwiURNM4oQLKdHRDqDccaW
-// SIG // dOU+iQbhgUshhWzdmlwnrRfbPvS0ezij1zAE4GnvjMtG
-// SIG // xRLA8t7CfM/J1FW7ktvNOThFdvqZVRFYbMQsiYkCAwEA
-// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBQ9XziJKANTiL5XmMZp
-// SIG // /vYFXJZLLjAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
+// SIG // ggEBAMvD7zaof/MpdTK2RrztdfdLzaj+0Eta6aPh4Pfn
+// SIG // 9lTn/y1k7EKBtBQzsLECgwQsqzbuU1XOPgOGbr6jfu7q
+// SIG // dmSK9xbVULAH9SukyUgadiVrp47MFQbuO1AHz+PTwyAS
+// SIG // 6A7dWOGl8yPvTSW4mk8F46LOs2AykPr+tzTumBMnx3zq
+// SIG // Xm6+/YKmzYIT79YYvbYQbbxzG18JFGUZpK2r6rw/Ayoh
+// SIG // RpgTDoPyLjfBvzDxIXSJp5ZGBQXZ1uD9CvURc76wAVph
+// SIG // 98NhhLp2sXDgJqG/cW2WUfFX7a32AjZHx0xWBp2jTYEa
+// SIG // ldaxBbfOuq3vLnscjYzlX5kffiQSlBWwNBCzD5UCAwEA
+// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBRk6k/zPCryhAlgdAYV
+// SIG // RgyudvnzOjAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
 // SIG // syuwwzWzDzBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8v
 // SIG // Y3JsLm1pY3Jvc29mdC5jb20vcGtpL2NybC9wcm9kdWN0
 // SIG // cy9NaWNyb3NvZnRUaW1lU3RhbXBQQ0EuY3JsMFgGCCsG
 // SIG // AQUFBwEBBEwwSjBIBggrBgEFBQcwAoY8aHR0cDovL3d3
 // SIG // dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNyb3Nv
 // SIG // ZnRUaW1lU3RhbXBQQ0EuY3J0MBMGA1UdJQQMMAoGCCsG
-// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQBW9mryWArT
-// SIG // QwTRt58bLNWamRLKYRBK7V4/jFUv0R3jt027EwgUYa/L
-// SIG // EWspXTacTuw6feQf/Ov68BRuktDg4eLL7sMBFl+oSuK7
-// SIG // 4rT4+rVGDt3ZL4likaHyLofibFnlxCHa9893BvwIQrq8
-// SIG // OOyT+j2l5f7tesai2vrhS7krO3Le7H+DoJM+bvZc9/9K
-// SIG // +WyVFpHqY9wXqNLTBX0rql19kWdzw3WNHzkui86g8mw1
-// SIG // T4ez07TsJEHqKzpEAv/8j5vIJsr+h+Hp19UdUcDPtExi
-// SIG // XXJKoIcLFLYxTLZ2axLwxuFSwOqwzpSNPG8sWnYUGupP
-// SIG // TBbE37m8UOHC2xm7iFh+XejuMIIGBzCCA++gAwIBAgIK
+// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQA/XRxIfkcv
+// SIG // 2gydWAEcwbExnqbZ0QTu9xfz+8BfHQu50zzRVKrWYTsm
+// SIG // pEvDQP2cMO+J+IL5tQFnxxozdQKPDYi9yesBZpjjfzxF
+// SIG // HVwNs1hWIYHkXgj5gE28DTdON3nB4ho1jvknjGKb5dRu
+// SIG // JmtDSFCWrvQ5k5H2jLzTCvv6zZY69zEfG8bEjmccdolI
+// SIG // mrTdHHjJiD+YEvb1KQ8U2ZMVbDHwOZ+t49fEzneDCc/h
+// SIG // tCOtsqiL7WMuxk8d/EheeuOeMKjJ4ImHKjNgY7+sbtRs
+// SIG // h01B+7/5dtSQXHiLdN4JrCIZSzaPMyItul+g9bBggRGV
+// SIG // dWFMkAvSFdh+tua1VMhWZPH+MIIGBzCCA++gAwIBAgIK
 // SIG // YRZoNAAAAAAAHDANBgkqhkiG9w0BAQUFADBfMRMwEQYK
 // SIG // CZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJ
 // SIG // bWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9v
@@ -366,34 +388,34 @@ module.exports = Plist;
 // SIG // AhMzAAAAZEeElIbbQRk4AAAAAABkMAkGBSsOAwIaBQCg
 // SIG // gcIwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYK
 // SIG // KwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-// SIG // hvcNAQkEMRYEFEwGrDDcxOL9+zSYK8ZiwC0VAadPMGIG
+// SIG // hvcNAQkEMRYEFIKaKwJ74Cg2g+KvspHzGFSzgXZnMGIG
 // SIG // CisGAQQBgjcCAQwxVDBSoDSAMgBNAGkAYwByAG8AcwBv
 // SIG // AGYAdAAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAgACgA
 // SIG // UgApoRqAGGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbTAN
-// SIG // BgkqhkiG9w0BAQEFAASCAQAPp0kGPNEOfZh6eITepOyq
-// SIG // MO5fDLp5YfM0C+tZGepRGHNB4wObQUfp/poiqnpkdOHn
-// SIG // kN07FongyekgQ/Jv15CmmRrdi3aR7xFP7l/Uqaw070u3
-// SIG // AZCVapIcicM56XODmhTCmTYs3DdG8Qh79Wnegjc+ZIjo
-// SIG // o0/E3iAsLsBVRKrevSNjmN1D8dqXUEloAJn/OVyUlLUz
-// SIG // YMopMg3txBzKtRudYwdelusTFjbLUTSmVZTApC54n0Mi
-// SIG // dK3f2y5j05JRL8H7rRGsdwTDiWtvG30XGm7AXGEDd7W7
-// SIG // NL/5YiNgS/nwbhW1LfkrrGN8OCD5DEoCKBVBMciv22t4
-// SIG // U5hclYrS9Zh1oYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
+// SIG // BgkqhkiG9w0BAQEFAASCAQASr8OI2+Gih36kV2kQOjQr
+// SIG // hany07lWHSnH/1dsKGnhMkqsjJjhKVetnF6bgOAnSGhh
+// SIG // gXINGl6NJ2NyoJUkfGZ+EKfNT5elBhTAmVMz8rgOpKZ1
+// SIG // HreyKJTBOi2bl7puu5z7jBiHG+/c3KR+PLRGxrIAZBM6
+// SIG // ECCome4KrVfKca2l4tUo6wXKE4vNyLXaUnbR4g1NKjqH
+// SIG // wx5EyOieUAeuuT8l8znJ1Q1XRKPqjJx43+Tl8TgZgQvk
+// SIG // Et4i/jOZeFkgK4RLFB8+Fnn1rN4AfH45dV/Ycka2jotg
+// SIG // rn5E6QxZwHpFLLrkyTPdJ/0CeCFyWo+MYxcyb7dwFYbm
+// SIG // tjJFvqSFH9hfoYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
 // SIG // ggIRAgEBMIGOMHcxCzAJBgNVBAYTAlVTMRMwEQYDVQQI
 // SIG // EwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4w
 // SIG // HAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xITAf
 // SIG // BgNVBAMTGE1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQQIT
-// SIG // MwAAAJzu/hRVqV01UAAAAAAAnDAJBgUrDgMCGgUAoF0w
+// SIG // MwAAAJ1CaO4xHNdWvQAAAAAAnTAJBgUrDgMCGgUAoF0w
 // SIG // GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG
-// SIG // 9w0BCQUxDxcNMTYwNDE0MTYwNDU2WjAjBgkqhkiG9w0B
-// SIG // CQQxFgQUtPzbnfuUI0ZOhNgfN6uM9TaTiNkwDQYJKoZI
-// SIG // hvcNAQEFBQAEggEAA/R2eJu9VNLbbMKALj3s8RdLnYxZ
-// SIG // OiVBu1uyJHbpsACyVK0J5+kDJ8TVNAItfM1hmaqEl0Aw
-// SIG // DO2wgMutTczDN/wmP84Y2op2ncx7EiHggVDv1BaGRc1v
-// SIG // g05jOak+QbeuybLIkbc1RZoARecb0cBzbl5l4/2FR+1f
-// SIG // y3thP039Ure7z2ffgQSeU6L5TxXpyzTmkCtF/+lsfIcu
-// SIG // zFXSSL064tyGmaidaZghXNEk9NB6a61u8MmG5SWRqaYD
-// SIG // nc1VbhWjoClnT/4l8aiDdCbtBOIe9vmI/iy2wwRJmBK7
-// SIG // NRNNmkBlkMZjCsWSif/aj3W1H0psY8Ov2gFpl3T0Otfd
-// SIG // uc702g==
+// SIG // 9w0BCQUxDxcNMTYwNTA1MjAxOTEzWjAjBgkqhkiG9w0B
+// SIG // CQQxFgQU7aIOwPaYCSguOQvtiliQA+6U/dEwDQYJKoZI
+// SIG // hvcNAQEFBQAEggEAsCXx918ZeXDamvi9lKpSsXmoQ4uM
+// SIG // HaWQutcGpe1cTVrUWbaJMHox6F9uVTbFsDP6VqLYrfVd
+// SIG // mbjEplp2W6Hmg/gvUJ4j2MRMC0qYgAX2JCzdoEZEUJHP
+// SIG // Ij/m8a+RqdD7sKYbv8IwaFmy0ZT+fMu9uzLn8j5JKxwa
+// SIG // BaRtLBbRz8IQNYLxjtS5QhQc0GJQXIDFCI1tTv56G0cY
+// SIG // wizBMoNbiLvwOTGliLiQpYvO+mGTCAE3ZdP6xV4G4D6m
+// SIG // KWF+4SJGopmZRkVMaMZqrZQQx3cz9Pwcfjx7nHCblGhH
+// SIG // 3f5kkdEm96jvaMxP+XuJnGHNAB96egVVnSle48ECABah
+// SIG // SlcKxw==
 // SIG // End signature block

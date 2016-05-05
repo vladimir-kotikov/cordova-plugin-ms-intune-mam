@@ -16,7 +16,13 @@ var path = require('path');
 // config: the GUID of the config
 // returns: relative path to the plist file
 xcode.project.prototype.getPlistFileName = function (config) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for getPlistFileName');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
+  if (!buildSettings['INFOPLIST_FILE']) {
+    return undefined;
+  }
   return buildSettings['INFOPLIST_FILE'].replace(/"/g, '');
 };
 
@@ -24,6 +30,9 @@ xcode.project.prototype.getPlistFileName = function (config) {
 // config: the GUID of the config
 // returns: whether a entitlements entry was found
 xcode.project.prototype.hasEntitlements = function (config) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for hasEntitlements');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   return buildSettings['CODE_SIGN_ENTITLEMENTS'] != null;
 };
@@ -32,7 +41,13 @@ xcode.project.prototype.hasEntitlements = function (config) {
 // config: the GUID of the config
 // returns: relative path to the entitlements file
 xcode.project.prototype.getEntitlementsFileName = function (config) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for getEntitlementsFileName');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
+  if (!buildSettings['CODE_SIGN_ENTITLEMENTS']) {
+    return undefined;
+  }
   return buildSettings['CODE_SIGN_ENTITLEMENTS'].replace(/"/g, '');
 };
 
@@ -40,6 +55,10 @@ xcode.project.prototype.getEntitlementsFileName = function (config) {
 //  NOTE: this may add duplicates to configurations.
 // flag: the flag to set
 xcode.project.prototype.addNewToOtherLinkerFlags = function (flag) {
+  if (!flag) {
+    throw new ReferenceError('Invalid argument flag for addNewToOtherLinkerFlags');
+  }
+
   var configUUIDList = this.getNativeTargetConfigList();
   var found = true;
   for (var config of configUUIDList.map(function (uuid) { return uuid['value']; })) {
@@ -58,6 +77,12 @@ xcode.project.prototype.addNewToOtherLinkerFlags = function (flag) {
 // config: the GUID of the config
 // library: the path to the library to force_load
 xcode.project.prototype.addForceLoadLibrary = function (config, library) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for addForceLoadLibrary');
+  }
+  if (!library) {
+    throw new ReferenceError('Invalid argument library for addForceLoadLibrary');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   if (buildSettings['OTHER_LDFLAGS'].indexOf(library) < 0) {
     buildSettings['OTHER_LDFLAGS'].push('\"-force_load\"');
@@ -86,6 +111,12 @@ xcode.project.prototype.getProjectName = function () {
 // config: the GUID of the config
 // path: the path to add to the header search paths
 xcode.project.prototype.addHeaderSearchPath = function (config, path) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for addHeaderSearchPath');
+  }
+  if (!path) {
+    throw new ReferenceError('Invalid argument path for addHeaderSearchPath');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   modify.addToUniqueKeyedArray(buildSettings, 'HEADER_SEARCH_PATHS', path);
 };
@@ -94,6 +125,12 @@ xcode.project.prototype.addHeaderSearchPath = function (config, path) {
 // config: the GUID of the config
 // path: the path to add to the library search paths
 xcode.project.prototype.addLibrarySearchPath = function (config, path) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for addLibrarySearchPath');
+  }
+  if (!path) {
+    throw new ReferenceError('Invalid argument path for addLibrarySearchPath');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   modify.addToUniqueKeyedArray(buildSettings, 'LIBRARY_SEARCH_PATHS', path);
 };
@@ -101,6 +138,9 @@ xcode.project.prototype.addLibrarySearchPath = function (config, path) {
 // Disables bitcode for the given configuration. NOTE: this method will override any existing settings for ENABLE_BITCODE
 // config: the GUID of the config
 xcode.project.prototype.disableBitcode = function (config) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for disableBitcode');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   modify.addUniqueKeyedValue(buildSettings, 'ENABLE_BITCODE', 'NO');
 };
@@ -109,6 +149,12 @@ xcode.project.prototype.disableBitcode = function (config) {
 // config: the GUID of the config
 // name: the name of the entitlements file.
 xcode.project.prototype.setEntitlementsFileName = function (config, name) {
+  if (!config || !this.pbxXCBuildConfigurationSection()[config]) {
+    throw new ReferenceError('Invalid argument config for setEntitlementsFileName');
+  }
+  if (!name) {
+    throw new ReferenceError('Invalid argument name for setEntitlementsFileName');
+  }
   var buildSettings = this.pbxXCBuildConfigurationSection()[config].buildSettings;
   modify.addNewUniqueKeyedValue(buildSettings, 'CODE_SIGN_ENTITLEMENTS', name);
 };
@@ -140,8 +186,7 @@ xcode.project.prototype.getPrimaryNativeTarget = function () {
 // key: the key to add to the leaf node of the path
 // value: the value associated with the given key
 var addDeepProjectAttribute = function (project, path, key, value) {
-  var projectSection = project.pbxProjectSection();
-  var proj = projectSection[Object.keys(projectSection)[0]];
+  var proj = project.pbxProjectSection()[project.hash.project.rootObject];
   var cursor = proj['attributes'];
 
   var subPath;
@@ -165,45 +210,45 @@ module.exports = xcode;
 // SIG // MIIdpgYJKoZIhvcNAQcCoIIdlzCCHZMCAQExCzAJBgUr
 // SIG // DgMCGgUAMGcGCisGAQQBgjcCAQSgWTBXMDIGCisGAQQB
 // SIG // gjcCAR4wJAIBAQQQEODJBs441BGiowAQS9NQkAIBAAIB
-// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFGNL0AVgDwzQ
-// SIG // MWuwN7qt0SjZuqvYoIIYZDCCBMMwggOroAMCAQICEzMA
-// SIG // AACb4HQ3yz1NjS4AAAAAAJswDQYJKoZIhvcNAQEFBQAw
+// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFKC32W5exdF8
+// SIG // vhd2b/qNH2GNkdrzoIIYZDCCBMMwggOroAMCAQICEzMA
+// SIG // AACYBFjLfyMJsJ4AAAAAAJgwDQYJKoZIhvcNAQEFBQAw
 // SIG // dzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0
 // SIG // b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1p
 // SIG // Y3Jvc29mdCBDb3Jwb3JhdGlvbjEhMB8GA1UEAxMYTWlj
 // SIG // cm9zb2Z0IFRpbWUtU3RhbXAgUENBMB4XDTE2MDMzMDE5
-// SIG // MjEyOVoXDTE3MDYzMDE5MjEyOVowgbMxCzAJBgNVBAYT
+// SIG // MjEyN1oXDTE3MDYzMDE5MjEyN1owgbMxCzAJBgNVBAYT
 // SIG // AlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQH
 // SIG // EwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29y
 // SIG // cG9yYXRpb24xDTALBgNVBAsTBE1PUFIxJzAlBgNVBAsT
-// SIG // Hm5DaXBoZXIgRFNFIEVTTjo3MjhELUM0NUYtRjlFQjEl
+// SIG // Hm5DaXBoZXIgRFNFIEVTTjo3QUZBLUU0MUMtRTE0MjEl
 // SIG // MCMGA1UEAxMcTWljcm9zb2Z0IFRpbWUtU3RhbXAgU2Vy
 // SIG // dmljZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-// SIG // ggEBAI2j4s+Bi9fLvwOiYPY7beLUGLA3BdWNNpwOc85N
-// SIG // f6IQsnxDeywYV7ysp6aGfXmhtd4yZvmO/CDNq3N3z3ed
-// SIG // b2Cca3jzxa2pvVtMK1WqUoBBQ0FmmaXwMGiGug8hch/D
-// SIG // dT+SdsEA15ksqFk/wWKRbQn2ztMiui0An2bLU9HKVjpY
-// SIG // TCGyhaOYZYzHiUpFWHurU0CfjGqyBcX+HuL/CqGootvL
-// SIG // IY18lTDeMReKDelfzEJwyqQVFG6ED8LC/WwCTJOxTLbO
-// SIG // tuzitc2aGhD1SOVXEHfqgd1fhEIycETJyryw+/dIOdhg
-// SIG // dUmts79odC6UDhy+wXBydBAOzNtrUB8x6jT6bD0CAwEA
-// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBSWlbGeE1O6WCFGNOJ8
-// SIG // xzlKbCDwdzAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
+// SIG // ggEBANY3JagEAe41WQrzrh+YxYsa0UxhbcDB8LNbBGWg
+// SIG // N3IqG1SHViHo3OXwbt13cES38Y7JsqLtyXk2mvJagPdv
+// SIG // atgMmfQN2QX8X/Fak8W7tOsAY+KOIOWArM9Av/NTdhEr
+// SIG // EGW4w8W1ubCsw4YU9J086/NmnqXtXa40+Xb8lPwLxJAs
+// SIG // 2hA1NHWU6tgZujSIn9dRswPjpA9G3WRvruBCUcpUOIo0
+// SIG // rRoF1KQGqW9MtkbZQGL2UqS2M3hRXAP8kV2nAp6A/vof
+// SIG // a+uoXv0nLxn3fyf+YT0QrYLGza97xScwVoFfc1apljr2
+// SIG // QTxqS4Qi4JU4dLLT2v2cWY00v5yiS2uzGSHdd9UCAwEA
+// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBTzwiOf0r0ljb2o9Zwb
+// SIG // 6Ehzu+mTwTAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
 // SIG // syuwwzWzDzBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8v
 // SIG // Y3JsLm1pY3Jvc29mdC5jb20vcGtpL2NybC9wcm9kdWN0
 // SIG // cy9NaWNyb3NvZnRUaW1lU3RhbXBQQ0EuY3JsMFgGCCsG
 // SIG // AQUFBwEBBEwwSjBIBggrBgEFBQcwAoY8aHR0cDovL3d3
 // SIG // dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNyb3Nv
 // SIG // ZnRUaW1lU3RhbXBQQ0EuY3J0MBMGA1UdJQQMMAoGCCsG
-// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQAhHbNT6TtG
-// SIG // gaH6KhPjWiAkunalO7Z3yJFyBNbq/tKbIi+TCKKwbu8C
-// SIG // pblWXv1l9o0Sfeon3j+guC4zMteWWj/DdDnJD6m2utr+
-// SIG // EGjPiP2PIN6ysdZdKJMnt8IHpEclZbtS1XFNKWnoC1DH
-// SIG // jJWWoF6sNzkC1V7zVCh5cdsXw0P8zWor+Q85QER8LGjI
-// SIG // 0oHomSKrIFbm5O8khptmVk474u64ZPfln8p1Cu58lp9Z
-// SIG // 4aygt9ZpvUIm0vWlh1IB7Cl++wW05tiXfBOAcTVfkybn
-// SIG // 5F90lXF8A421H3X1orZhPe7EbIleZAR/KUts1EjqSkpM
-// SIG // 54JutTq/VyYRyHiA1YDNDrtkMIIGBzCCA++gAwIBAgIK
+// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQA/sT1SIRZd
+// SIG // 9FxHt/a5YFKggq9n10faNGi9DoqGqeiwFDFyyuAfvy9n
+// SIG // PgYFd9o6FOrzAoU2gPu1xMO6VwkTfrg/LpeInx63QDhB
+// SIG // KjkwQ+zedtN7tizeuu/1mO9abqz9nszQdcvmAII2sBLe
+// SIG // lY40HEhmfW0z0bUtiT0uQUvOvKWspt+ebtehzMcJoZb9
+// SIG // ZJV+p31TrNQ2CuXGVKzwG5QmRFsxmm/I/XdmSBi0JkxJ
+// SIG // krXbJTqu/b7oxCNJ6g5yQbrFBotvCodx89UCBzOVGYPx
+// SIG // ebFoLdBKGxRh5pOCh9r63hmQK7QiAWpg3OXCCePJ2vRn
+// SIG // wNo6iS1rG7zXMAuPOoOXGrsJMIIGBzCCA++gAwIBAgIK
 // SIG // YRZoNAAAAAAAHDANBgkqhkiG9w0BAQUFADBfMRMwEQYK
 // SIG // CZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJ
 // SIG // bWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9v
@@ -363,34 +408,34 @@ module.exports = xcode;
 // SIG // AhMzAAAAZEeElIbbQRk4AAAAAABkMAkGBSsOAwIaBQCg
 // SIG // gcIwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYK
 // SIG // KwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-// SIG // hvcNAQkEMRYEFCUUIkhFSajtRZPME4uulzd1jwfEMGIG
+// SIG // hvcNAQkEMRYEFE3ds2OkR+bE8Wwhicc6L4X9tvyrMGIG
 // SIG // CisGAQQBgjcCAQwxVDBSoDSAMgBNAGkAYwByAG8AcwBv
 // SIG // AGYAdAAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAgACgA
 // SIG // UgApoRqAGGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbTAN
-// SIG // BgkqhkiG9w0BAQEFAASCAQAjjOue31AxM9eStnMI6dsD
-// SIG // RLgPVRU5bAdiKseMYCRtKg10ltKn/EmjzpMtlkd5JsOL
-// SIG // oj4UtqyyjMWALdAkxbLn4D+PzVOrEEMnmM94QL5c7Gzl
-// SIG // yUK13nleS3Jr0dJ2dxMViaG4RC1umK9Qw1Aart2hFZOQ
-// SIG // WEDpE+dMsQOF8AFh/I8t9QyIG0iYotYaaE2Ii8RGpR01
-// SIG // ExrGYSUDt0kRV/VYaWqYQNhax3w0kLiQFXkL9HQcEbGv
-// SIG // VK9v0M3D+FjrP2tL/JfR69I1sc9MIkjdFpjgbTleEpM4
-// SIG // zjKwfoJB72suCKe49ZU2pWDkxwRToNvWiGyvjr2horxT
-// SIG // oJJZ9TtLWE0soYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
+// SIG // BgkqhkiG9w0BAQEFAASCAQAce3smWgMwaTybLZ/oAGIM
+// SIG // bvNEpm2/hrbItZEmbw5Mrb0DIIOd+6+1VmD3ZjL9b11j
+// SIG // Ge93ekmj9oHcLmajKlmVBa67pnha+/UOpKp5FRy1UWIe
+// SIG // sVXkCyQHgDpMSgbnHrWjeIcVDalrou3JHZA7E9sjBFcV
+// SIG // wHSAgMISQ6yVRo4NYTRkafRZUIXDt7T/2K462IpVrUlf
+// SIG // 5A1ooeF1IJ+8BBD7Q1Vzf2tQyS3JvUYc2AutixoDYFG4
+// SIG // taHWIyW+SPTHc6YXynkP2RkE5yDsVKxikX/GhVhbc8jq
+// SIG // xDmc64dy2aR07+CHtpS/AS8+nktu/fV0vUwVzms3nYEk
+// SIG // xyqwRWUVTl0soYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
 // SIG // ggIRAgEBMIGOMHcxCzAJBgNVBAYTAlVTMRMwEQYDVQQI
 // SIG // EwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4w
 // SIG // HAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xITAf
 // SIG // BgNVBAMTGE1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQQIT
-// SIG // MwAAAJvgdDfLPU2NLgAAAAAAmzAJBgUrDgMCGgUAoF0w
+// SIG // MwAAAJgEWMt/IwmwngAAAAAAmDAJBgUrDgMCGgUAoF0w
 // SIG // GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG
-// SIG // 9w0BCQUxDxcNMTYwNDE1MTkxMTU2WjAjBgkqhkiG9w0B
-// SIG // CQQxFgQU0473ycC21Noszi4EbEXScQrMkm8wDQYJKoZI
-// SIG // hvcNAQEFBQAEggEASC4R0WLcejPG3a+NFj/iC0gTEpIF
-// SIG // pPBIaj3UpTEjUBTPbzAxHQGa9/XjLXTZgP7kbf5X1gUh
-// SIG // 66v/HMyuGJQeF+aROIsr/HlRKbxRPp5Yodpt/hJdMrEv
-// SIG // wY/ALlJJXqgXbwOCPu3RhBUxLN/RjssprqORYjnW6tKJ
-// SIG // pDgOTCi7fd6zUu+8yLaP1JrJHM0kp6/PDVOP8mJQTKBH
-// SIG // O78aIxVKkjpp+YQbHQcggIaFyabKRVzITzMqG5RRjqo6
-// SIG // Z3s79BAU4ybjAQ2exx0k9JjIADI7AMr6I+0MBN/tBlf/
-// SIG // V1k0gWk2rypQdwXn30GPEJC2VtV+h0ramBDlwxT4XgHW
-// SIG // cKAY6g==
+// SIG // 9w0BCQUxDxcNMTYwNTA1MjAxOTEzWjAjBgkqhkiG9w0B
+// SIG // CQQxFgQUbWkpnfsF/5yfbsRpY8YrCBPhy7MwDQYJKoZI
+// SIG // hvcNAQEFBQAEggEACHxA4sO+1g4WTjsYgk1I6jfU4QoB
+// SIG // VpAbMa4IU7aXOn3bTdAKKvSkXc6jDWYKa4O0MQSTdMUt
+// SIG // jJ0dc7iskdnS2QetBgZ8EDsksFRVju6JbuvEDLe6uvTc
+// SIG // cD0HP3CZMcCJM9JI5LQetCzL1R7QJwBpmsBIsxv4BZMv
+// SIG // YJ4ly6aRayvZiKqHASda0sN6u4EPacrfGAZc4YbIi+4/
+// SIG // MA8X9Axxb1PKZTM3m/OOeFdmrFAQ0uPrQ+qKSGv/Japo
+// SIG // 8MK1logOOpKsU+A4aQd1xGe6hhJMKiO4d/EnF8i38B5P
+// SIG // 3uB+1At4d4f1z9IE+s2nbjK4uyvBw9L2drTcoIcF44NG
+// SIG // IxHQYQ==
 // SIG // End signature block

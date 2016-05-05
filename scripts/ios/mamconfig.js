@@ -23,8 +23,9 @@ var configureEntitlementsAndPlists = function (entitlementMap, files) {
     var plists = entitlementMap[entitlement];
 
     for (var plist of plists) {
-      var plistObject = getMatchingFileFromList(plist, files);
       console.log('Performing configuration steps for ' + entitlement + ' and ' + plist);
+      var plistObject = getMatchingFileFromList(plist, files);
+
       configureKeychainAccess(plistObject, entitlementObject);
       moveStoryboardsNibs(plistObject);
       addIntuneURLSchemes(plistObject);
@@ -52,11 +53,15 @@ var configureKeychainAccess = function (plist, entitlements) {
 // plist: the plist JSON to modify
 var moveStoryboardsNibs = function (plist) {
   console.log('Starting Step: Moving Storyboards and Nibs');
+  var storyboard = plist.getMainStoryboard();
+  var storyboardIpad = plist.getMainStoryboardIpad();
+  var nib = plist.getMainNib();
+  var nibIpad = plist.getMainNibIpad();
 
-  plist.addStoryboardOrNibToIntuneIfExists(plist.getMainStoryboard(), 'UIMainStoryboardFile');
-  plist.addStoryboardOrNibToIntuneIfExists(plist.getMainStoryboardIpad(), 'UIMainStoryboardFile~ipad');
-  plist.addStoryboardOrNibToIntuneIfExists(plist.getMainNib(), 'NSMainnibFile');
-  plist.addStoryboardOrNibToIntuneIfExists(plist.getMainNibIpad(), 'NSMainnibFile~ipad');
+  if (storyboard) plist.addStoryboardOrNibToIntune(storyboard, 'UIMainStoryboardFile');
+  if (storyboardIpad) plist.addStoryboardOrNibToIntune(storyboardIpad, 'UIMainStoryboardFile~ipad');
+  if (nib) plist.addStoryboardOrNibToIntune(nib, 'NSMainnibFile');
+  if (nibIpad) plist.addStoryboardOrNibToIntune(nibIpad, 'NSMainnibFile~ipad');
   plist.deleteMainStoryboard();
   plist.deleteMainStoryboardIpad();
   plist.deleteMainNib();
@@ -166,9 +171,8 @@ var getEntitlementsAndPlistInfo = function (project) {
   return {'files': files, 'entitlementsPlistMapping': mapping};
 };
 
-// Loads all files and stores the filename / parsed plist data in the supplied mapping.
+// Loads all files and stores the filename / parsed plist data.
 // files: an array contain the files to be loaded
-// mapping: a dictionary which will be updated with the loaded file data.
 var loadFiles = function (files) {
   return Q.all(files.map(function (name) {
     var plist = new PlistHelper(name, Q);
@@ -206,45 +210,45 @@ module.exports.configureIntuneMAM = function (q, project) {
 // SIG // MIIdpgYJKoZIhvcNAQcCoIIdlzCCHZMCAQExCzAJBgUr
 // SIG // DgMCGgUAMGcGCisGAQQBgjcCAQSgWTBXMDIGCisGAQQB
 // SIG // gjcCAR4wJAIBAQQQEODJBs441BGiowAQS9NQkAIBAAIB
-// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFGdLhaYgaBwc
-// SIG // pyuBLEvOKTo04/Y5oIIYZDCCBMMwggOroAMCAQICEzMA
-// SIG // AACdQmjuMRzXVr0AAAAAAJ0wDQYJKoZIhvcNAQEFBQAw
+// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFA4TRM8kEBiF
+// SIG // A0AQemX3HRLFy5BtoIIYZDCCBMMwggOroAMCAQICEzMA
+// SIG // AACYBFjLfyMJsJ4AAAAAAJgwDQYJKoZIhvcNAQEFBQAw
 // SIG // dzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0
 // SIG // b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1p
 // SIG // Y3Jvc29mdCBDb3Jwb3JhdGlvbjEhMB8GA1UEAxMYTWlj
 // SIG // cm9zb2Z0IFRpbWUtU3RhbXAgUENBMB4XDTE2MDMzMDE5
-// SIG // MjEzMFoXDTE3MDYzMDE5MjEzMFowgbMxCzAJBgNVBAYT
+// SIG // MjEyN1oXDTE3MDYzMDE5MjEyN1owgbMxCzAJBgNVBAYT
 // SIG // AlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQH
 // SIG // EwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29y
 // SIG // cG9yYXRpb24xDTALBgNVBAsTBE1PUFIxJzAlBgNVBAsT
-// SIG // Hm5DaXBoZXIgRFNFIEVTTjoxNDhDLUM0QjktMjA2NjEl
+// SIG // Hm5DaXBoZXIgRFNFIEVTTjo3QUZBLUU0MUMtRTE0MjEl
 // SIG // MCMGA1UEAxMcTWljcm9zb2Z0IFRpbWUtU3RhbXAgU2Vy
 // SIG // dmljZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-// SIG // ggEBAMvD7zaof/MpdTK2RrztdfdLzaj+0Eta6aPh4Pfn
-// SIG // 9lTn/y1k7EKBtBQzsLECgwQsqzbuU1XOPgOGbr6jfu7q
-// SIG // dmSK9xbVULAH9SukyUgadiVrp47MFQbuO1AHz+PTwyAS
-// SIG // 6A7dWOGl8yPvTSW4mk8F46LOs2AykPr+tzTumBMnx3zq
-// SIG // Xm6+/YKmzYIT79YYvbYQbbxzG18JFGUZpK2r6rw/Ayoh
-// SIG // RpgTDoPyLjfBvzDxIXSJp5ZGBQXZ1uD9CvURc76wAVph
-// SIG // 98NhhLp2sXDgJqG/cW2WUfFX7a32AjZHx0xWBp2jTYEa
-// SIG // ldaxBbfOuq3vLnscjYzlX5kffiQSlBWwNBCzD5UCAwEA
-// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBRk6k/zPCryhAlgdAYV
-// SIG // RgyudvnzOjAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
+// SIG // ggEBANY3JagEAe41WQrzrh+YxYsa0UxhbcDB8LNbBGWg
+// SIG // N3IqG1SHViHo3OXwbt13cES38Y7JsqLtyXk2mvJagPdv
+// SIG // atgMmfQN2QX8X/Fak8W7tOsAY+KOIOWArM9Av/NTdhEr
+// SIG // EGW4w8W1ubCsw4YU9J086/NmnqXtXa40+Xb8lPwLxJAs
+// SIG // 2hA1NHWU6tgZujSIn9dRswPjpA9G3WRvruBCUcpUOIo0
+// SIG // rRoF1KQGqW9MtkbZQGL2UqS2M3hRXAP8kV2nAp6A/vof
+// SIG // a+uoXv0nLxn3fyf+YT0QrYLGza97xScwVoFfc1apljr2
+// SIG // QTxqS4Qi4JU4dLLT2v2cWY00v5yiS2uzGSHdd9UCAwEA
+// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBTzwiOf0r0ljb2o9Zwb
+// SIG // 6Ehzu+mTwTAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
 // SIG // syuwwzWzDzBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8v
 // SIG // Y3JsLm1pY3Jvc29mdC5jb20vcGtpL2NybC9wcm9kdWN0
 // SIG // cy9NaWNyb3NvZnRUaW1lU3RhbXBQQ0EuY3JsMFgGCCsG
 // SIG // AQUFBwEBBEwwSjBIBggrBgEFBQcwAoY8aHR0cDovL3d3
 // SIG // dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNyb3Nv
 // SIG // ZnRUaW1lU3RhbXBQQ0EuY3J0MBMGA1UdJQQMMAoGCCsG
-// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQA/XRxIfkcv
-// SIG // 2gydWAEcwbExnqbZ0QTu9xfz+8BfHQu50zzRVKrWYTsm
-// SIG // pEvDQP2cMO+J+IL5tQFnxxozdQKPDYi9yesBZpjjfzxF
-// SIG // HVwNs1hWIYHkXgj5gE28DTdON3nB4ho1jvknjGKb5dRu
-// SIG // JmtDSFCWrvQ5k5H2jLzTCvv6zZY69zEfG8bEjmccdolI
-// SIG // mrTdHHjJiD+YEvb1KQ8U2ZMVbDHwOZ+t49fEzneDCc/h
-// SIG // tCOtsqiL7WMuxk8d/EheeuOeMKjJ4ImHKjNgY7+sbtRs
-// SIG // h01B+7/5dtSQXHiLdN4JrCIZSzaPMyItul+g9bBggRGV
-// SIG // dWFMkAvSFdh+tua1VMhWZPH+MIIGBzCCA++gAwIBAgIK
+// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQA/sT1SIRZd
+// SIG // 9FxHt/a5YFKggq9n10faNGi9DoqGqeiwFDFyyuAfvy9n
+// SIG // PgYFd9o6FOrzAoU2gPu1xMO6VwkTfrg/LpeInx63QDhB
+// SIG // KjkwQ+zedtN7tizeuu/1mO9abqz9nszQdcvmAII2sBLe
+// SIG // lY40HEhmfW0z0bUtiT0uQUvOvKWspt+ebtehzMcJoZb9
+// SIG // ZJV+p31TrNQ2CuXGVKzwG5QmRFsxmm/I/XdmSBi0JkxJ
+// SIG // krXbJTqu/b7oxCNJ6g5yQbrFBotvCodx89UCBzOVGYPx
+// SIG // ebFoLdBKGxRh5pOCh9r63hmQK7QiAWpg3OXCCePJ2vRn
+// SIG // wNo6iS1rG7zXMAuPOoOXGrsJMIIGBzCCA++gAwIBAgIK
 // SIG // YRZoNAAAAAAAHDANBgkqhkiG9w0BAQUFADBfMRMwEQYK
 // SIG // CZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJ
 // SIG // bWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9v
@@ -404,34 +408,34 @@ module.exports.configureIntuneMAM = function (q, project) {
 // SIG // AhMzAAAAZEeElIbbQRk4AAAAAABkMAkGBSsOAwIaBQCg
 // SIG // gcIwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYK
 // SIG // KwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-// SIG // hvcNAQkEMRYEFC/weHTp58autTupNr9s4voZhdqbMGIG
+// SIG // hvcNAQkEMRYEFPTLXebDDUHFwQt9lagQY+y0oXY6MGIG
 // SIG // CisGAQQBgjcCAQwxVDBSoDSAMgBNAGkAYwByAG8AcwBv
 // SIG // AGYAdAAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAgACgA
 // SIG // UgApoRqAGGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbTAN
-// SIG // BgkqhkiG9w0BAQEFAASCAQBNZMgTLK+Vl+Ygk7w+apxT
-// SIG // whPxBWhJUZzKoZS8SjXrYnzkJjPTcfbHnr1eyw2dTdPA
-// SIG // 3Sg6LbfJ4D38wktiOfdCpF33LDkGQskF3fvbg8GP05++
-// SIG // 2WI/NW3QwS0Q8cczrwyJSGTrzWvQqdowCQQ2Y6M7MDpi
-// SIG // zyfJVbjRa58XBo6iEp28ku62xruck+rwMg6bwEtbEvA3
-// SIG // 6EtUB6T6Bf4m3yyDQe3RSoMz5u3LAaK+AKgVc+ljOmeQ
-// SIG // 5pJKarmvb7U+iVVbizDFrDem6fiy/2SwCffTJQz8My8p
-// SIG // 5DNNR3cCr8XIwFKUNbq59BbDrWux5f986lsmxpRF9HHr
-// SIG // nl05lfmwmc/JoYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
+// SIG // BgkqhkiG9w0BAQEFAASCAQAZ4p3VFbfn18r0QSrwZzQc
+// SIG // aMDfrh+I3AQXhNBYHjeEtR67ZU0aOBUfKag4pA0GhEbA
+// SIG // +aKfT0N/0445uAg2xcVCW6bHVTrBLK7cOw9nXkxkSBUc
+// SIG // TV+14HQPrt/nMpSEVvnUxPmRiBZ0EnfatfgFzf1BHZCQ
+// SIG // I7LkYgW/GaKvqiMP7hiux//xe5Zl/L/Yeze6AVTglSr3
+// SIG // Krx8Uy/5pEG3iUeJ9qSCs5VoTg7mHYcWMUQifMPiLHBx
+// SIG // gz+ogEaDW1pb1qygDw4hBkMqEraB/SmsTLfeTP1ZaN9Z
+// SIG // MDeQIb+TUbngGTUT9xRDegqeIDSHq7dfXidsN5ecNjWg
+// SIG // VcPGgscgJg8+oYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
 // SIG // ggIRAgEBMIGOMHcxCzAJBgNVBAYTAlVTMRMwEQYDVQQI
 // SIG // EwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4w
 // SIG // HAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xITAf
 // SIG // BgNVBAMTGE1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQQIT
-// SIG // MwAAAJ1CaO4xHNdWvQAAAAAAnTAJBgUrDgMCGgUAoF0w
+// SIG // MwAAAJgEWMt/IwmwngAAAAAAmDAJBgUrDgMCGgUAoF0w
 // SIG // GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG
-// SIG // 9w0BCQUxDxcNMTYwNDE0MTYwNDU2WjAjBgkqhkiG9w0B
-// SIG // CQQxFgQUmvfePkoV+48EWesadfNHE8GQTUMwDQYJKoZI
-// SIG // hvcNAQEFBQAEggEAmPcOkoT0G5s2klhFQJTrDRJa9dYZ
-// SIG // UV28c2RNieEv2S0f57BsCfiwJRfarrk1b5RnwXjSujTp
-// SIG // S7r8Pbu/s4YHq55WS7z1CBWTrOnDG/8omceXOH53iw3D
-// SIG // kxntfgwla8n6TmOzygaR4bFPQ9KY8VRbabIIg79DpD1b
-// SIG // ad1VbZLm+tKqLtdT1BDOkkd+6HUwygmfNt3hZByhTst8
-// SIG // 1bAnWgNtBxPz8GhEStBkp2C/DMaU9JS2iKZzSmnppc3w
-// SIG // l0AHxBlvBF10TNmq0x2Q/dxA16QVrWELjvZNv3EHarZL
-// SIG // zug8PfYaBzMRg3w1W/h4tPshICepR84IWLl9Vs9VPox1
-// SIG // JkYtEA==
+// SIG // 9w0BCQUxDxcNMTYwNTA1MjAxOTEzWjAjBgkqhkiG9w0B
+// SIG // CQQxFgQUXzKfzC2D3qP0iIMJBOcvexF15aUwDQYJKoZI
+// SIG // hvcNAQEFBQAEggEAhm3+3vz+INiK7snXwMBm0U75gRcp
+// SIG // SzUXz8sZSpYUzCvZyY1X5JTuqzhhA7bA7e1/oAB2mlFA
+// SIG // yRQq+hgeQgurvTIvU6a538wQbuLLOSRD5ds4nyvgbTlS
+// SIG // u6Ijj0Et2SpS0fF0fWKmCRm+spuDSyTRpqPxlPxGZ4ZX
+// SIG // 5Aqprbd0dAwuCjDxjoRZXTL34K9N6ou7a5FqJbECreWt
+// SIG // COmpndfyr/c5H2jIIjTAddubgEeIvFZSNzG9JkZ4cXRE
+// SIG // MIROLnxUJrDe9qtI2FGvdBw2pHBdEkOFzM076+TqXri/
+// SIG // IqjTq0Fl8iBmYxDL3zXSq5HnUdOx+rPHdycsdnGrQppc
+// SIG // V7FtPg==
 // SIG // End signature block

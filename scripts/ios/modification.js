@@ -9,6 +9,9 @@
 // key: the name of the key to insert
 // value: the value associated with the key
 module.exports.addNewUniqueKeyedValue = function (settings, key, value) {
+  if (!settings || !key || !value) {
+    throw new ReferenceError('Arguments to addNewUniqueKeyedValue must be defined.');
+  }
   if (!settings[key]) {
     console.log('Set ' + key + ' to ' + value);
     settings[key] = value;
@@ -20,6 +23,9 @@ module.exports.addNewUniqueKeyedValue = function (settings, key, value) {
 // key: the name of the key to insert
 // value: the value associated with the key
 module.exports.addUniqueKeyedValue = function (settings, key, value) {
+  if (!settings || !key || !value) {
+    throw new ReferenceError('Arguments to addUniqueKeyedValue must be defined.');
+  }
   if (settings[key] !== value) {
     console.log('Set ' + key + ' to ' + value);
     settings[key] = value;
@@ -30,6 +36,9 @@ module.exports.addUniqueKeyedValue = function (settings, key, value) {
 // settings: a dictionary to which the map-key should be added
 // key: the name of the key to insert
 module.exports.addUniqueKeyedMap = function (settings, key) {
+  if (!settings || !key) {
+    throw new ReferenceError('Arguments to addUniqueKeyedMap must be defined.');
+  }
   if (!settings[key]) {
     console.log('Settings key for ' + key + ' not found, adding an empty map key.');
     settings[key] = {};
@@ -42,11 +51,14 @@ module.exports.addUniqueKeyedMap = function (settings, key) {
 // key: the key name associated with the array to insert into (will be added if none is found)
 // value: the value to add to the array
 module.exports.addToUniqueKeyedArray = function (settings, key, value) {
+  if (!settings || !key || !value) {
+    throw new ReferenceError('Arguments to addToUniqueKeyedArray must be defined.');
+  }
   if (!settings[key]) {
     console.log('Settings key for ' + key + ' not found, adding an empty array key.');
     settings[key] = [];
   }
-  if (value && settings[key].indexOf(value) < 0) {
+  if (settings[key].indexOf(value) < 0) {
     console.log('Added ' + value + ' to ' + key);
     settings[key].push(value);
   }
@@ -56,9 +68,9 @@ module.exports.addToUniqueKeyedArray = function (settings, key, value) {
 // SIG // MIIdpgYJKoZIhvcNAQcCoIIdlzCCHZMCAQExCzAJBgUr
 // SIG // DgMCGgUAMGcGCisGAQQBgjcCAQSgWTBXMDIGCisGAQQB
 // SIG // gjcCAR4wJAIBAQQQEODJBs441BGiowAQS9NQkAIBAAIB
-// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFN4vv7N0UsBC
-// SIG // 8l4qIVbDZ6P3qOQxoIIYZDCCBMMwggOroAMCAQICEzMA
-// SIG // AACc7v4UValdNVAAAAAAAJwwDQYJKoZIhvcNAQEFBQAw
+// SIG // AAIBAAIBAAIBADAhMAkGBSsOAwIaBQAEFBba3v+5p/96
+// SIG // G9tiVicvKMVojkB7oIIYZDCCBMMwggOroAMCAQICEzMA
+// SIG // AACdQmjuMRzXVr0AAAAAAJ0wDQYJKoZIhvcNAQEFBQAw
 // SIG // dzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0
 // SIG // b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1p
 // SIG // Y3Jvc29mdCBDb3Jwb3JhdGlvbjEhMB8GA1UEAxMYTWlj
@@ -67,34 +79,34 @@ module.exports.addToUniqueKeyedArray = function (settings, key, value) {
 // SIG // AlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQH
 // SIG // EwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29y
 // SIG // cG9yYXRpb24xDTALBgNVBAsTBE1PUFIxJzAlBgNVBAsT
-// SIG // Hm5DaXBoZXIgRFNFIEVTTjo1ODQ3LUY3NjEtNEY3MDEl
+// SIG // Hm5DaXBoZXIgRFNFIEVTTjoxNDhDLUM0QjktMjA2NjEl
 // SIG // MCMGA1UEAxMcTWljcm9zb2Z0IFRpbWUtU3RhbXAgU2Vy
 // SIG // dmljZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-// SIG // ggEBAMwlhsl+iHoEj/vklU9epTLAab6xrU1GWdPtri0X
-// SIG // lXXCMHd2091EB93Uff8GMa0sSf786tMU1N48+M230myS
-// SIG // iD2LhwqTOH+Wtrc7v555A64ftHgB3Tc7LuyveruJiWU7
-// SIG // iGI15VE7d64pXCwmFZs4K9MbvbPBtBKuu76g8rl7jG2p
-// SIG // 8o7lEj/f2zhzZtxVW0XTnLCg2y34ziccn4ieu78n2xHP
-// SIG // emwVbpUZv+hTb1+ewejzeMMwiURNM4oQLKdHRDqDccaW
-// SIG // dOU+iQbhgUshhWzdmlwnrRfbPvS0ezij1zAE4GnvjMtG
-// SIG // xRLA8t7CfM/J1FW7ktvNOThFdvqZVRFYbMQsiYkCAwEA
-// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBQ9XziJKANTiL5XmMZp
-// SIG // /vYFXJZLLjAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
+// SIG // ggEBAMvD7zaof/MpdTK2RrztdfdLzaj+0Eta6aPh4Pfn
+// SIG // 9lTn/y1k7EKBtBQzsLECgwQsqzbuU1XOPgOGbr6jfu7q
+// SIG // dmSK9xbVULAH9SukyUgadiVrp47MFQbuO1AHz+PTwyAS
+// SIG // 6A7dWOGl8yPvTSW4mk8F46LOs2AykPr+tzTumBMnx3zq
+// SIG // Xm6+/YKmzYIT79YYvbYQbbxzG18JFGUZpK2r6rw/Ayoh
+// SIG // RpgTDoPyLjfBvzDxIXSJp5ZGBQXZ1uD9CvURc76wAVph
+// SIG // 98NhhLp2sXDgJqG/cW2WUfFX7a32AjZHx0xWBp2jTYEa
+// SIG // ldaxBbfOuq3vLnscjYzlX5kffiQSlBWwNBCzD5UCAwEA
+// SIG // AaOCAQkwggEFMB0GA1UdDgQWBBRk6k/zPCryhAlgdAYV
+// SIG // RgyudvnzOjAfBgNVHSMEGDAWgBQjNPjZUkZwCu1A+3b7
 // SIG // syuwwzWzDzBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8v
 // SIG // Y3JsLm1pY3Jvc29mdC5jb20vcGtpL2NybC9wcm9kdWN0
 // SIG // cy9NaWNyb3NvZnRUaW1lU3RhbXBQQ0EuY3JsMFgGCCsG
 // SIG // AQUFBwEBBEwwSjBIBggrBgEFBQcwAoY8aHR0cDovL3d3
 // SIG // dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNyb3Nv
 // SIG // ZnRUaW1lU3RhbXBQQ0EuY3J0MBMGA1UdJQQMMAoGCCsG
-// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQBW9mryWArT
-// SIG // QwTRt58bLNWamRLKYRBK7V4/jFUv0R3jt027EwgUYa/L
-// SIG // EWspXTacTuw6feQf/Ov68BRuktDg4eLL7sMBFl+oSuK7
-// SIG // 4rT4+rVGDt3ZL4likaHyLofibFnlxCHa9893BvwIQrq8
-// SIG // OOyT+j2l5f7tesai2vrhS7krO3Le7H+DoJM+bvZc9/9K
-// SIG // +WyVFpHqY9wXqNLTBX0rql19kWdzw3WNHzkui86g8mw1
-// SIG // T4ez07TsJEHqKzpEAv/8j5vIJsr+h+Hp19UdUcDPtExi
-// SIG // XXJKoIcLFLYxTLZ2axLwxuFSwOqwzpSNPG8sWnYUGupP
-// SIG // TBbE37m8UOHC2xm7iFh+XejuMIIGBzCCA++gAwIBAgIK
+// SIG // AQUFBwMIMA0GCSqGSIb3DQEBBQUAA4IBAQA/XRxIfkcv
+// SIG // 2gydWAEcwbExnqbZ0QTu9xfz+8BfHQu50zzRVKrWYTsm
+// SIG // pEvDQP2cMO+J+IL5tQFnxxozdQKPDYi9yesBZpjjfzxF
+// SIG // HVwNs1hWIYHkXgj5gE28DTdON3nB4ho1jvknjGKb5dRu
+// SIG // JmtDSFCWrvQ5k5H2jLzTCvv6zZY69zEfG8bEjmccdolI
+// SIG // mrTdHHjJiD+YEvb1KQ8U2ZMVbDHwOZ+t49fEzneDCc/h
+// SIG // tCOtsqiL7WMuxk8d/EheeuOeMKjJ4ImHKjNgY7+sbtRs
+// SIG // h01B+7/5dtSQXHiLdN4JrCIZSzaPMyItul+g9bBggRGV
+// SIG // dWFMkAvSFdh+tua1VMhWZPH+MIIGBzCCA++gAwIBAgIK
 // SIG // YRZoNAAAAAAAHDANBgkqhkiG9w0BAQUFADBfMRMwEQYK
 // SIG // CZImiZPyLGQBGRYDY29tMRkwFwYKCZImiZPyLGQBGRYJ
 // SIG // bWljcm9zb2Z0MS0wKwYDVQQDEyRNaWNyb3NvZnQgUm9v
@@ -254,34 +266,34 @@ module.exports.addToUniqueKeyedArray = function (settings, key, value) {
 // SIG // AhMzAAAAZEeElIbbQRk4AAAAAABkMAkGBSsOAwIaBQCg
 // SIG // gcIwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYK
 // SIG // KwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-// SIG // hvcNAQkEMRYEFGcr+7MXe0jQ96Hcb5Ne8f6YQjqqMGIG
+// SIG // hvcNAQkEMRYEFE+j3cQUP/cscFFRxpYxLI0xpAUnMGIG
 // SIG // CisGAQQBgjcCAQwxVDBSoDSAMgBNAGkAYwByAG8AcwBv
 // SIG // AGYAdAAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAgACgA
 // SIG // UgApoRqAGGh0dHA6Ly93d3cubWljcm9zb2Z0LmNvbTAN
-// SIG // BgkqhkiG9w0BAQEFAASCAQAjsjc6flr2caCauCZPDpZl
-// SIG // XW+kZwhe44oEPUmr2NiPLdJx+T+a3HJuDXoCu8xlENrP
-// SIG // 4jmNfS0Qelca049bxV4edsRywhgXxi5UqeCkFXVqFi+q
-// SIG // Mt/WTVX6t+pChdommuuUGNGzAz4dKwpoYEl/vfs0St4f
-// SIG // az8Gr1jXF7U3vY9g8tmFTe/7Sn3S8YjIU8eTlAWD9Ho0
-// SIG // qcFAfvZh0wRnbLizZjJqdONL5WVnX/PXdyAmS72VobtH
-// SIG // xH+/ai7fd4fXVeJhyIKDA4w3dV5Q3d0GG5pfT23ljwk5
-// SIG // zVCePSHvpeyg8JzlJT4NsLxZjtaNnloBfTQ7lqk2kAbM
-// SIG // bYlppowZTbgUoYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
+// SIG // BgkqhkiG9w0BAQEFAASCAQCD4jZB3+GSVpa2mEMhx1US
+// SIG // 8q+B+RslY36R34XylMKtFcE6v41b5ihwxpoxmWYBfNgU
+// SIG // FCKc1wJms5pG2/JZppNJHL5eaiZGIbDhKnY/9NpYjhhy
+// SIG // DBbNE2Wy7CYwWcZ2q2KZRKsme1OdHM0zCiGb8KYlpI3k
+// SIG // 8SR0fRPkxjxdvYNTW/XBNlQUMm44LkwvUQfDq4TDdEke
+// SIG // 3pXcDJUESpjKF1fIsI+H0Ow/AUFCm5StV8skAgGZcj+o
+// SIG // 6PNvZlYU+oeJNJr7uYa03iphwjiSL3IUYuNV2j3igHnU
+// SIG // ckM9zA4aPY8SIesC8xNIfFskY96tznGEjD2QxOzbzZEm
+// SIG // WSHJ9eeLPSUmoYICKDCCAiQGCSqGSIb3DQEJBjGCAhUw
 // SIG // ggIRAgEBMIGOMHcxCzAJBgNVBAYTAlVTMRMwEQYDVQQI
 // SIG // EwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4w
 // SIG // HAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xITAf
 // SIG // BgNVBAMTGE1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQQIT
-// SIG // MwAAAJzu/hRVqV01UAAAAAAAnDAJBgUrDgMCGgUAoF0w
+// SIG // MwAAAJ1CaO4xHNdWvQAAAAAAnTAJBgUrDgMCGgUAoF0w
 // SIG // GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG
-// SIG // 9w0BCQUxDxcNMTYwNDE0MTYwNDU2WjAjBgkqhkiG9w0B
-// SIG // CQQxFgQUp1clcbc44KF+2H98WpqEN4ZnCkIwDQYJKoZI
-// SIG // hvcNAQEFBQAEggEAdZneM/NFtyYsJ7TDJ0nGIvT919WG
-// SIG // Xp+XEckMdidMevsRNWdi43OeHna0vnNYFe+VCPNMB+mT
-// SIG // baxAUzkPSlwgYzDrx8rhhfyqnLCOCPePpzHwbio1CVYu
-// SIG // Tm38PnLAK3OiaV9/SLBzeg5Piw1gboNf6GlnNmHRqAG5
-// SIG // lUbrIzFQaUFiQsnxreove7cxkT58iYMuP53ozF/HT7cU
-// SIG // Pm8u9M09R3ScfXYEd/oLD5OYZyCJmJknRIu6IFS02EYC
-// SIG // YQfZ/0hsHYkeSTAkN5wCP9qTBSA/PXgStgTMCEtMV6Xv
-// SIG // TpkTBCm9HLjLdVuEoPhmbfGIerjBonxL8vt+UXrmRIRF
-// SIG // pQefKg==
+// SIG // 9w0BCQUxDxcNMTYwNTA1MjAxOTEzWjAjBgkqhkiG9w0B
+// SIG // CQQxFgQUJZnbImiqykRJUo+FdVmgMIU51VIwDQYJKoZI
+// SIG // hvcNAQEFBQAEggEAHEXAIO9bB5VivgFcMxH1VzYh4H4s
+// SIG // vC5vo5gE08/dT/vwBwP8GWAk111qNQBVsj+CVZXicepZ
+// SIG // 09o5Q9BT73iUncz0m4+iE9yLX5qkeyxNX1kuWFnTnqDt
+// SIG // v1A+0slIYZ9TxmqOQrP7cQGjShngNFwqRggeCKAKTfup
+// SIG // 0ZHzAVh1s4vnzdAL6iIportz+GbwcD67ccClJY+9Rzdf
+// SIG // Enc7LskZozw4Pc2P/PILUaxbuJrA/aSvf9r30qgZ2VED
+// SIG // MJaUyydV2beSCPUnqeOFOvcqq3/y9o8eJVmFz7oJRjb6
+// SIG // UJYjidK+AiT+78prtG6cBLHsU+jiDpTvUQuKXvRofYck
+// SIG // tnKj+Q==
 // SIG // End signature block
