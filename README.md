@@ -5,7 +5,7 @@ The Intune App SDK Cordova plugin enables mobile app management features with Mi
 Before you install and use Microsoft Intune App SDK Cordova Plugin you **must**:
 * Review the [Intune App SDK Cordova Plugin License Terms ] (https://github.com/msintuneappsdk/cordova-plugin-ms-intune-mam/blob/master/Intune_App_SDK_Cordova_plugin_RTM_license.pdf) 
 * Print and retain a copy of the license terms for your records.
-By downloading and using Intune App SDK for Android you agree to such license terms.  If you do not accept them, do not use the software.
+By downloading and using Intune App SDK Cordova plugin you agree to such license terms.  If you do not accept them, do not use the software.
 
 
 
