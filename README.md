@@ -1,6 +1,13 @@
-﻿#cordova-plugin-ms-intune-mam
+#Microsoft Intune App SDK Cordova plugin 
 
 The Intune App SDK Cordova plugin enables mobile app management features with Microsoft Intune mobile iOS and Android apps built with Cordova. The plugin allows a developer to easily build in data protection features into their app. You will find that you can enable SDK features without changing your app’s behavior. Once you've built the plugin into your iOS or Android mobile app, the IT admin will be able to deploy policy via Microsoft Intune supporting a variety of features that enable data protection. We've built the plugin so that most the steps are automatically performed in the Cordova build process. As a result, you should be able to get your app enabled for management quickly. To get started, follow the steps below based on your target platform.
+
+Before you install and use Microsoft Intune App SDK Cordova Plugin you **must**:
+* Review the [Intune App SDK Cordova Plugin License Terms ] (https://github.com/msintuneappsdk/cordova-plugin-ms-intune-mam/blob/master/Intune_App_SDK_Cordova_plugin_RTM_license.pdf) 
+* Print and retain a copy of the license terms for your records.
+By downloading and using Intune App SDK for Android you agree to such license terms.  If you do not accept them, do not use the software.
+
+
 
 
 ##How to build the plugin into your iOS mobile app
