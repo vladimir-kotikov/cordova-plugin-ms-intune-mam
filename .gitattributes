@@ -95,6 +95,11 @@ README                 text
 *.tif                  binary
 *.tiff                 binary
 
+# Checked in secrets
+*.cer                  binary
+*.qencr                binary
+*.dat                  binary
+
 #
 # MAM SDK binaries
 #

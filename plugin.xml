@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-ms-intune-mam" version="1.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-ms-intune-mam" version="1.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>Intune App SDK</name>
     <description>Microsoft Intune App SDK Cordova plugin</description>
     <author>Microsoft</author>
     <keywords>Cordova,Microsoft,Intune,MAM</keywords>
+    <license>https://github.com/msintuneappsdk/cordova-plugin-ms-intune-mam/blob/master/Intune_App_SDK_Cordova_plugin_RTM_license.pdf</license>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="IntuneAppSDK">
