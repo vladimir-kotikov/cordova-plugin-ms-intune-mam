@@ -9,6 +9,13 @@
       "android"
     ]
   },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
   "keywords": [
     "Cordova",
     "Microsoft",
