@@ -26,7 +26,9 @@
         <framework src="libc++.dylib" />
         <!-- According to bug filed at https://issues.apache.org/jira/browse/CB-6227?jql=text%20~%20%22plugin%20dependency%22, apps that already have the plugin dependency will not upgrade the plugin to the requested version. -->
         <!-- According to bug filed at https://issues.apache.org/jira/browse/CB-10438?jql=text%20~%20%22plugin%20dependency%22, Cordova will currently grab the latest version of the plugin dependency rather than the specified version -->
-        <dependency id="cordova-plugin-ms-adal" version="^0.6.2" />
+        <!--<dependency id="cordova-plugin-ms-adal" version="^0.6.2" />-->
+        <dependency id="cordova-plugin-ms-adal"
+                    url="https://github.com/AzureAD/azure-activedirectory-library-for-cordova" />
     </platform>
     <platform name="android">
         <hook type="after_compile" src="wraphook.js"/>

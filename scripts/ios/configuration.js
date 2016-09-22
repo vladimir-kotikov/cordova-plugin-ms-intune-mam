@@ -82,7 +82,7 @@ var configureProject = function (project) {
     project.addHeaderSearchPath(config, '\"$(inherited)\"');
     project.addHeaderSearchPath(config, '\"' + intuneAppPluginPath + '/lib/ios/Headers\"');
     project.addForceLoadLibrary(config, '\"' + intuneAppPluginPath + '/lib/ios/libIntuneMAM.a\"');
-    project.addForceLoadLibrary(config, '\"' + adalPluginPath + '/ADALiOS.framework/ADALiOS\"');
+    project.addForceLoadLibrary(config, '\"' + adalPluginPath + '/ADAL.framework/ADAL\"');
   }
 
   project.enableKeychainSharing();
